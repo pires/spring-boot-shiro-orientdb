@@ -1,7 +1,7 @@
 This sample project is comprehended by the following:
 * Spring Boot REST controller
 * OrientDB remote object persistence by means of Spring Data
-* Shiro session-management
+* Shiro session-management with OrientDB-based authorizing realm
 * Hazelcast (3.2) powered session distributed persistence
 
 # Pre-requisites
