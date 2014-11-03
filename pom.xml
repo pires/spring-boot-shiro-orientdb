@@ -49,7 +49,7 @@
     <dependency>
       <groupId>org.springframework.boot</groupId>
       <artifactId>spring-boot-starter-web</artifactId>
-<!--      <exclusions>
+      <!--      <exclusions>
         <exclusion>
           <groupId>org.springframework.boot</groupId>
           <artifactId>spring-boot-starter-tomcat</artifactId>
@@ -88,6 +88,37 @@
     <finalName>test</finalName>
     <plugins>
       <plugin>
+        <groupId>com.mycila</groupId>
+        <artifactId>license-maven-plugin</artifactId>
+        <version>2.6</version>
+        <inherited>false</inherited>
+        <configuration>
+          <aggregate>true</aggregate>
+          <header>${basedir}/COPYRIGHT</header>
+          <strictCheck>true</strictCheck>
+          <includes>
+            <include>**/src/main/**/*.java</include>
+            <include>**/src/test/**/*.java</include>
+            <include>**/src/main/**/*.xml</include>
+            <include>**/src/test/**/*.xml</include>
+            <modelVersion>4.0.0</modelVersion>
+          </includes>
+          <useDefaultExcludes>true</useDefaultExcludes>
+          <encoding>UTF-8</encoding>
+          <properties>
+            <inception>${project.inceptionYear}</inception>
+          </properties>
+        </configuration>
+        <executions>
+          <execution>
+            <phase>process-test-resources</phase>
+            <goals>
+              <goal>format</goal>
+            </goals>
+          </execution>
+        </executions>
+      </plugin>
+      <plugin>
         <groupId>org.codehaus.mojo</groupId>
         <artifactId>aspectj-maven-plugin</artifactId>
         <version>1.7</version>
@@ -122,11 +153,11 @@
           </execution>
         </executions>
       </plugin>
-      <plugin>
+      <!--      <plugin>
         <groupId>org.wildfly.plugins</groupId>
         <artifactId>wildfly-maven-plugin</artifactId>
         <version>1.0.2.Final</version>
-      </plugin>
+      </plugin>-->
     </plugins>
   </build>
     
