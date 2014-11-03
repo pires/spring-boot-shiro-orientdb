@@ -18,7 +18,6 @@
     <java.version>1.8</java.version>
     <maven.compiler.source>${java.version}</maven.compiler.source>
     <maven.compiler.target>${java.version}</maven.compiler.target>
-    <servlet-api.version>3.1.0</servlet-api.version>
     <!-- dependencies -->
     <spring.data.orient.version>0.0.7-SNAPSHOT</spring.data.orient.version>
     <orientdb.version>2.0-M2</orientdb.version>
@@ -49,17 +48,6 @@
     <dependency>
       <groupId>org.springframework.boot</groupId>
       <artifactId>spring-boot-starter-web</artifactId>
-      <!--      <exclusions>
-        <exclusion>
-          <groupId>org.springframework.boot</groupId>
-          <artifactId>spring-boot-starter-tomcat</artifactId>
-        </exclusion>
-      </exclusions>-->
-    </dependency>
-    <dependency>
-      <groupId>javax.servlet</groupId>
-      <artifactId>javax.servlet-api</artifactId>
-      <version>${servlet-api.version}</version>
     </dependency>
     <dependency>
       <groupId>org.apache.shiro</groupId>
@@ -91,9 +79,7 @@
         <groupId>com.mycila</groupId>
         <artifactId>license-maven-plugin</artifactId>
         <version>2.6</version>
-        <inherited>false</inherited>
         <configuration>
-          <aggregate>true</aggregate>
           <header>${basedir}/COPYRIGHT</header>
           <strictCheck>true</strictCheck>
           <includes>
@@ -101,7 +87,6 @@
             <include>**/src/test/**/*.java</include>
             <include>**/src/main/**/*.xml</include>
             <include>**/src/test/**/*.xml</include>
-            <modelVersion>4.0.0</modelVersion>
           </includes>
           <useDefaultExcludes>true</useDefaultExcludes>
           <encoding>UTF-8</encoding>
@@ -113,6 +98,7 @@
           <execution>
             <phase>process-test-resources</phase>
             <goals>
+              <goal>remove</goal>
               <goal>format</goal>
             </goals>
           </execution>
@@ -153,11 +139,6 @@
           </execution>
         </executions>
       </plugin>
-      <!--      <plugin>
-        <groupId>org.wildfly.plugins</groupId>
-        <artifactId>wildfly-maven-plugin</artifactId>
-        <version>1.0.2.Final</version>
-      </plugin>-->
     </plugins>
   </build>
     
