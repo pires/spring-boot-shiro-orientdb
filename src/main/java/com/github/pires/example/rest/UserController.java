@@ -16,6 +16,7 @@ import org.apache.shiro.mgt.SecurityManager;
 import com.github.pires.example.model.User;
 import com.github.pires.example.repository.UserRepository;
 import java.util.List;
+import org.apache.shiro.SecurityUtils;
 import org.apache.shiro.authc.UsernamePasswordToken;
 import org.apache.shiro.authc.credential.DefaultPasswordService;
 import org.apache.shiro.authz.annotation.RequiresAuthentication;
@@ -51,7 +52,7 @@ public class UserController {
 
   @RequestMapping(value = "/auth", method = POST)
   public void authenticate(@RequestBody final UsernamePasswordToken credentials) {
-    final Subject subject = new Subject.Builder(sm).buildSubject();
+    final Subject subject = SecurityUtils.getSubject();
     subject.login(credentials);
     // set attribute that will allow session querying
     subject.getSession().setAttribute("email", credentials.getUsername());
