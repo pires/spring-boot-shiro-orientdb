@@ -8,7 +8,7 @@ This sample project is comprehended by the following:
 
 * JDK 8
 * Maven 3.2.3 or newer
-* OrientDB server running with a clean schema named ```User```
+* OrientDB server running with a clean schema named ```orientdb-test``` and one class named ```User```.
 
 # Spring Data hack
 
