@@ -17,7 +17,7 @@ import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import java.util.ArrayList;
 import java.util.List;
 import javax.persistence.Id;
-import javax.persistence.OneToMany;
+import javax.persistence.ManyToMany;
 import javax.persistence.Version;
 
 /**
@@ -33,7 +33,7 @@ public class Role {
   private Long version;
   private String name;
   private String description;
-  @OneToMany
+  @ManyToMany
   private List<Permission> permissions;
 
   public String getId() {
