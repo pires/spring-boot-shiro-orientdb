@@ -12,16 +12,12 @@
  */
 package com.github.pires.example.repository;
 
-import com.github.pires.example.model.User;
+import com.github.pires.example.model.Permission;
 import org.springframework.data.orient.object.repository.OrientObjectRepository;
 
 /**
- * DAO for {@link User}.
+ * TODO add description
  */
-public interface UserRepository extends OrientObjectRepository<User> {
-
-  User findByEmail(String email);
-
-  User findByEmailAndActive(String email, boolean active);
+public interface PermissionRepository extends OrientObjectRepository<Permission> {
 
 }

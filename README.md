@@ -32,10 +32,10 @@ mvn clean package spring-boot:run
 
 ## REST API (JSON)
 
-### Add user
+### Initialize test scenario
 
 ```
-curl -H "Accept: application/json" -H "Content-type: application/json" -X PUT -d '{"name":"Paulo Pires", "email":"pjpires@gmail.com", "password":"123qwe"}' http://localhost:8080/users
+curl -i -H "Accept: application/json" -X PUT http://localhost:8080/users
 ```
 
 ### Access protected method without being authenticated
@@ -44,7 +44,7 @@ curl -H "Accept: application/json" -H "Content-type: application/json" -X PUT -d
 curl -i -H "Accept: application/json" -X GET http://localhost:8080/users
 ```
 
-You should get a ```403 Forbidden``` response status.
+You should get a ```401 Unauthorized``` response status.
 
 ### Log-in
 
@@ -61,3 +61,11 @@ curl -i -b cookie.txt -H "Accept: application/json" -X GET http://localhost:8080
 ```
 
 You should get a ```200 OK``` response status and some JSON representing existing users.
+
+### Access another protected method to which you don't have permission
+
+```
+curl -i -b cookie.txt -H "Accept: application/json" -X GET http://localhost:8080/users/do_something
+```
+
+You should get a ```401 Unauthorized``` response status.

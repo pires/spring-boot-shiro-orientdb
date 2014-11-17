@@ -24,20 +24,17 @@ import javax.persistence.Version;
  * TODO add description
  */
 @JsonIgnoreProperties(value = {"handler"})
-public class User {
+public class Role {
 
   @Id
   private String id;
   @Version
   @JsonIgnore
   private Long version;
-  private Long created;
-  private String email;
   private String name;
-  private Boolean active;
-  private String password;
+  private String description;
   @OneToMany
-  private List<Role> roles;
+  private List<Permission> permissions;
 
   public String getId() {
     return id;
@@ -55,22 +52,6 @@ public class User {
     this.version = version;
   }
 
-  public Long getCreated() {
-    return created;
-  }
-
-  public void setCreated(Long created) {
-    this.created = created;
-  }
-
-  public String getEmail() {
-    return email;
-  }
-
-  public void setEmail(String email) {
-    this.email = email;
-  }
-
   public String getName() {
     return name;
   }
@@ -79,31 +60,22 @@ public class User {
     this.name = name;
   }
 
-  public Boolean getActive() {
-    return active;
+  public String getDescription() {
+    return description;
   }
 
-  public void setActive(Boolean active) {
-    this.active = active;
+  public void setDescription(String description) {
+    this.description = description;
   }
 
-  public String getPassword() {
-    return password;
+  public List<Permission> getPermissions() {
+    if (permissions == null)
+      this.permissions = new ArrayList<>();
+    return permissions;
   }
 
-  public void setPassword(String password) {
-    this.password = password;
-  }
-
-  public List<Role> getRoles() {
-    if (roles == null) {
-      this.roles = new ArrayList<>();
-    }
-    return roles;
-  }
-
-  public void setRoles(List<Role> roles) {
-    this.roles = roles;
+  public void setPermissions(List<Permission> permissions) {
+    this.permissions = permissions;
   }
 
 }

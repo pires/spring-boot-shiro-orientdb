@@ -28,16 +28,10 @@ import org.springframework.web.bind.annotation.ResponseStatus;
 @ControllerAdvice
 public class ApplicationExceptionHandler {
 
-  @ResponseStatus(HttpStatus.FORBIDDEN)
-  @ExceptionHandler(
-      {AuthenticationException.class, UnknownAccountException.class,
-        UnauthenticatedException.class, IncorrectCredentialsException.class})
-  public void forbidden() {
-  }
-
   @ResponseStatus(HttpStatus.UNAUTHORIZED)
   @ExceptionHandler(
-      {UnauthorizedException.class})
+      {AuthenticationException.class, UnknownAccountException.class,
+        UnauthenticatedException.class, IncorrectCredentialsException.class, UnauthorizedException.class})
   public void unauthorized() {
   }
 

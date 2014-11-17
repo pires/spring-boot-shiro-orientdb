@@ -98,7 +98,6 @@
           <execution>
             <phase>process-test-resources</phase>
             <goals>
-              <goal>remove</goal>
               <goal>format</goal>
             </goals>
           </execution>

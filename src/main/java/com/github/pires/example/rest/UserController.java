@@ -12,14 +12,18 @@
  */
 package com.github.pires.example.rest;
 
-import org.apache.shiro.mgt.SecurityManager;
+import com.github.pires.example.model.Permission;
+import com.github.pires.example.model.Role;
 import com.github.pires.example.model.User;
+import com.github.pires.example.repository.PermissionRepository;
+import com.github.pires.example.repository.RoleRepository;
 import com.github.pires.example.repository.UserRepository;
 import java.util.List;
 import org.apache.shiro.SecurityUtils;
 import org.apache.shiro.authc.UsernamePasswordToken;
 import org.apache.shiro.authc.credential.DefaultPasswordService;
 import org.apache.shiro.authz.annotation.RequiresAuthentication;
+import org.apache.shiro.authz.annotation.RequiresRoles;
 import org.apache.shiro.subject.Subject;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -42,16 +46,21 @@ public class UserController {
       getLogger(UserController.class);
 
   @Autowired
-  private SecurityManager sm;
-
-  @Autowired
   private DefaultPasswordService passwordService;
 
   @Autowired
-  private UserRepository userRepository;
+  private UserRepository userRepo;
+
+  @Autowired
+  private RoleRepository roleRepo;
+
+  @Autowired
+  private PermissionRepository permissionRepo;
 
   @RequestMapping(value = "/auth", method = POST)
   public void authenticate(@RequestBody final UsernamePasswordToken credentials) {
+    log.info("Authenticating {} with password {}", credentials.getUsername(),
+        credentials.getPassword());
     final Subject subject = SecurityUtils.getSubject();
     subject.login(credentials);
     // set attribute that will allow session querying
@@ -60,29 +69,47 @@ public class UserController {
 
   @RequestMapping(method = GET)
   @RequiresAuthentication
+  @RequiresRoles("ADMIN")
   public List<User> getAll() {
-    return userRepository.findAll();
+    return userRepo.findAll();
   }
 
-//  @RequestMapping(value = "/created_between", method = GET)
-//  public List<User> getAllCreatedBetween(@RequestParam long start,
-//      @RequestParam long end) {
-//    return smRepo.findByTimestampBetween(start, end);
-//  }
+  @RequestMapping(value="do_something", method = GET)
+  @RequiresAuthentication
+  @RequiresRoles("DO_SOMETHING")
+  public List<User> dontHavePermission() {
+    return userRepo.findAll();
+  }
+  
   @RequestMapping(method = PUT)
-  public void put(@RequestBody User newUser) {
-    log.info("Received new user request -> {}", newUser);
-
-    // validate email is not yet registered
-    if (userRepository.findByEmail(newUser.getEmail()) != null) {
-      throw new EmaiAlreadyInUseException();
-    }
-
-    // store into orientdb
-    newUser.setCreated(System.currentTimeMillis());
-    newUser.setActive(true);
-    newUser.setPassword(passwordService.encryptPassword(newUser.getPassword()));
-    userRepository.save(newUser);
+  public void initScenario() {
+    log.info("Initializing scenario..");
+    // clean-up users, roles and permissions
+    userRepo.deleteAll();
+    roleRepo.deleteAll();
+    permissionRepo.deleteAll();
+    // define permissions
+    final Permission p1 = new Permission();
+    p1.setName("VIEW_ALL_USERS");
+    permissionRepo.save(p1);
+    final Permission p2 = new Permission();
+    p2.setName("DO_SOMETHING");
+    permissionRepo.save(p2);
+    // define roles
+    final Role roleAdmin = new Role();
+    roleAdmin.setName("ADMIN");
+    roleAdmin.getPermissions().add(p1);
+    roleRepo.save(roleAdmin);
+    // define user
+    final User user = new User();
+    user.setActive(true);
+    user.setCreated(System.currentTimeMillis());
+    user.setEmail("pjpires@gmail.com");
+    user.setName("Paulo Pires");
+    user.setPassword(passwordService.encryptPassword("123qwe"));
+    user.getRoles().add(roleAdmin);
+    userRepo.save(user);
+    log.info("Scenario initiated.");
   }
 
 }
