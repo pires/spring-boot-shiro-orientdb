@@ -59,8 +59,7 @@ public class UserController {
 
   @RequestMapping(value = "/auth", method = POST)
   public void authenticate(@RequestBody final UsernamePasswordToken credentials) {
-    log.info("Authenticating {} with password {}", credentials.getUsername(),
-        credentials.getPassword());
+    log.info("Authenticating {}", credentials.getUsername());
     final Subject subject = SecurityUtils.getSubject();
     subject.login(credentials);
     // set attribute that will allow session querying
