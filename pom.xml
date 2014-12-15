@@ -10,19 +10,19 @@
   <parent>
     <groupId>org.springframework.boot</groupId>
     <artifactId>spring-boot-starter-parent</artifactId>
-    <version>1.1.8.RELEASE</version>
+    <version>1.2.0.RELEASE</version>
   </parent>
     
   <properties>
     <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
-    <java.version>1.8</java.version>
+    <java.version>1.7</java.version>
     <maven.compiler.source>${java.version}</maven.compiler.source>
     <maven.compiler.target>${java.version}</maven.compiler.target>
     <!-- dependencies -->
-    <spring.data.orient.version>0.0.7-SNAPSHOT</spring.data.orient.version>
-    <orientdb.version>2.0-M2</orientdb.version>
+    <spring.data.orient.version>0.0.9-SNAPSHOT</spring.data.orient.version>
+    <orientdb.version>2.0-M3</orientdb.version>
     <shiro.version>1.2.3</shiro.version>
-    <hazelcast.version>3.3.1</hazelcast.version>
+    <hazelcast.version>3.3.3</hazelcast.version>
     <aspectj.version>1.8.3</aspectj.version>
     <testng.version>6.8.8</testng.version>
   </properties>
