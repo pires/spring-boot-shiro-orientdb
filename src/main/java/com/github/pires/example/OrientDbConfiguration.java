@@ -12,13 +12,12 @@
  */
 package com.github.pires.example;
 
+import javax.annotation.PostConstruct;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.data.orient.repository.config.EnableOrientRepositories;
 import org.springframework.orm.orient.OrientObjectDatabaseFactory;
 import org.springframework.transaction.annotation.Transactional;
-
-import javax.annotation.PostConstruct;
 
 @Configuration
 @EnableOrientRepositories(basePackages = "com.github.pires.example.repository")
@@ -32,4 +31,5 @@ public class OrientDbConfiguration {
   public void registerEntities() {
     factory.db().getEntityManager().registerEntityClasses("com.github.pires.example.model");
   }
+  
 }
