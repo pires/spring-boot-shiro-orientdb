@@ -1,8 +1,8 @@
 This sample project is comprehended by the following:
 * Spring Boot REST controller
-* OrientDB remote object persistence by means of Spring Data
-* Shiro session-management with OrientDB-based authorizing realm
-* Hazelcast powered session distributed persistence
+* OrientDB (2.0.13) remote object persistence by means of Spring Data
+* Apache Shiro (1.2.4) session-management with OrientDB-based authorizing realm
+* Hazelcast (3.5.1) powered session distributed persistence
 
 # Pre-requisites
 
@@ -11,13 +11,13 @@ This sample project is comprehended by the following:
 
 # Spring Data hack
 
-We need ```spring-data-orient```for Spring Data OrientDB support.
-We'll be checking out commit ```b25c54f```, the latest at the time of this writing.
+We need ```spring-data-orientdb```for Spring Data OrientDB support.
+We'll be checking out a commit known to be working at the time of this writing.
 
 ```
-git clone https://github.com/noskovd/spring-data-orient.git
-cd spring-data-orient
-git checkout b25c54f
+git clone git@github.com:orientechnologies/spring-data-orientdb.git
+cd spring-data-orientdb
+git checkout 6337a3e
 mvn clean install
 ```
 
@@ -29,7 +29,11 @@ mvn clean package spring-boot:run
 
 # Testing
 
-## REST API (JSON)
+## Automatically
+
+```mvn clean test```
+
+## Manually
 
 ### Initialize test scenario
 
